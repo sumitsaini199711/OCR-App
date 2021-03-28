@@ -3,12 +3,20 @@ import FileBase64 from "react-file-base64";
 import { Button, Form, FormGroup, Label, FormText, Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import "./upload.css";
 export class Upload extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       confirmation: "",
+      isLoading: "",
+      files: "",
+      Invoice: "",
+      Amount: "",
+      InvoiceDate: "",
+      Vendor: "",
+      Description: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
