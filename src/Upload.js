@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import FileBase64 from "react-file-base64";
 import { Button, Form, FormGroup, Label, FormText, Input } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+
 import "./upload.css";
-export class Upload extends Component {
+
+class Upload extends Component {
   constructor(props) {
     super(props);
 
@@ -19,18 +19,51 @@ export class Upload extends Component {
       Description: "",
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChane = this.handleChane.bind(this);
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
+  handleChane(event) {
+    event.preventDefault();
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({ name: value });
+  }
+
+  async handleSubmit(event) {
+    event.preventDefaulr();
     this.setState({ confirmation: "Uploading..." });
   }
 
-  getFiles() {}
+  async getFiles(files) {
+    this.setState({
+      isLoading: "Extracting data",
+      files: files,
+    });
+
+    const UID = Math.round(1 + Math.random() * (1000000 - 1));
+
+    var date = {
+      fileExt: "png",
+      imageID: UID,
+      folder: UID,
+      img: this.state.files[0].base64,
+    };
+
+    this.setState({ confirmation: "Processing..." });
+    await fetch("https://92b5wz0zrg.execute-api.us-east-1.amazonaws.com/Prod", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application.json",
+      },
+      body: JSON.stringify(date),
+    });
+  }
 
   render() {
-    const processing = "Processing document...";
+    const processing = this.state.confirmation;
     return (
       <div className="row">
         <div className="col-6 offset-3">
