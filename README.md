@@ -1,7 +1,10 @@
 Deploy Link: http://ocr-react-app.s3-website-us-east-1.amazonaws.com
+
 Lambda Func:
     s3 Image Upload: https://92b5wz0zrg.execute-api.us-east-1.amazonaws.com/Prod
+    
     OCR-Textract: https://92b5wz0zrg.execute-api.us-east-1.amazonaws.com/Prod/ocr-textract
+    
 
 # Getting Started with Create React App
 
