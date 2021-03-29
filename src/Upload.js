@@ -60,6 +60,27 @@ class Upload extends Component {
       },
       body: JSON.stringify(date),
     });
+
+    let targetImage = UID + ".png";
+    const response = await fetch(
+      "https://92b5wz0zrg.execute-api.us-east-1.amazonaws.com/Prod/ocr-textract",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application.json",
+        },
+        body: JSON.stringify(targetImage),
+      }
+    );
+    this.setState({ confirmation: "" });
+
+    const OCRBody = await response.json();
+    console.log("OCRBody", OCRBody);
+
+    this.setState({ Amount: OCRBody.body[0] });
+    this.setState({ Invoice: OCRBody.body[1] });
+    this.setState({ InvoiceDate: OCRBody.body[2] });
   }
 
   render() {
